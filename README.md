@@ -20,3 +20,24 @@ Run the following command
 ```bash {"id":"01HWSY7NTNEJZ4RYNRV0CXJA2G"}
   gitleaks detect -s 01-gitleaks -v
 ```
+
+## 02. Synk
+
+Snyk docker
+
+```bash {"id":"01HWSY7NTNEJZ4RYNRTSMM4WJ7"}
+docker run -it -e "SNYK_TOKEN={YOUR_TOKEN}" -v "./NodeGoat:/project" snyk/snyk:node bash
+```
+
+Inside Docker
+
+```bash {"id":"01HWSY7NTNEJZ4RYNRTXH3CEAY"}
+  cd /project
+  snyk test
+```
+
+To monitor
+
+```bash {"id":"01HWSY7NTNEJZ4RYNRV0CXJA2G"}
+  snyk monitor
+```
