@@ -1,3 +1,9 @@
+---
+runme:
+  id: 01HWTC69VDDMV7YSVF6Y67TE41
+  version: v3
+---
+
 ## 01. Gitleaks
 
 Gitleak install
@@ -21,7 +27,7 @@ Run the following command
   gitleaks detect -s 01-gitleaks -v
 ```
 
-## 02. Synk
+## 02. Snyk
 
 Snyk docker
 
