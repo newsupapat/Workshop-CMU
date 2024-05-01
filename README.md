@@ -1,9 +1,3 @@
----
-runme:
-  id: 01HWSXEFPXMPNB7XT903NWW0CN
-  version: v3
----
-
 ## 01. Gitleaks
 
 Gitleak install
