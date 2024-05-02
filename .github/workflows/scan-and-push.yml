@@ -1,0 +1,39 @@
+name: Scan file and Push to Dependency-Track
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  scan-and-push:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Install Syft
+        run: curl -sSfL https://raw.githubusercontent.com/anchore/syft/main/install.sh | sh -s -- -b /usr/local/bin
+
+      - name: Scan Docker image with Syft
+        run: syft dir:. -o cyclonedx-json --file syft-output.json
+
+      - name: Upload Syft output to Dependency-Track
+        uses: actions/upload-artifact@v3
+        with:
+          name: syft-output
+          path: syft-output.json
+
+      # Assuming you have an API to push to Dependency-Track, adjust as necessary
+      - name: Push results to Dependency-Track
+        uses: DependencyTrack/gh-upload-sbom@v2.0.0
+        with:
+          serverHostname: 'example.com'
+          apiKey: 'rH8zmVi6e6vldQf4b7b1Er3Erb9L2wTR'
+          projectName: 'test'
+          projectVersion: 'master'
+          bomFilename: "syft-output.json"
+          autoCreate: true
