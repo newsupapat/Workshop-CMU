@@ -1,0 +1,37 @@
+apiVersion: "execution.securecodebox.io/v1"
+kind: ScheduledScan
+metadata:
+  name: "gitleak-minute-scan"
+  namespace: "securecodebox-system"
+  annotations:
+    metadata.scan.securecodebox.io/git-repo-url: "https://github.com/newsupapat/gitleak-workshop"
+    defectdojo.securecodebox.io/product-name: 'workshop-01'
+    defectdojo.securecodebox.io/product-type-name: 'WORKSHOP'
+spec:
+  schedule: "* * * * *" # Schedule for every minute
+  scanSpec:
+    scanType: "gitleaks"
+    volumes:
+      - name: repo
+        emptyDir: {}
+    volumeMounts:
+      - name: repo
+        mountPath: "/repo/"
+    initContainers:
+      - name: "git-clone"
+        image: bitnami/git
+        volumeMounts:
+          - name: repo
+            mountPath: "/repo/"
+        command:
+          - git
+          - clone
+          - '--mirror'
+          - 'https://github.com/newsupapat/gitleak-workshop.git'
+          - /repo/
+    parameters:
+      - "detect"
+      - "--source"
+      - "/repo/"
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 5
