@@ -1,0 +1,23 @@
+apiVersion: "execution.securecodebox.io/v1"
+kind: Scan
+metadata:
+  name: "scan-github-repo-{YOURNAME}"
+  namespace: "securecodebox-system"
+spec:
+  scanType: "git-repo-scanner"
+  parameters:
+    - "--git-type"
+    - "github"
+    - "--organization"
+    - "workshop-cmu2024"
+    - '--access-token'
+    - $(GITHUB_TOKEN)
+  env:
+    - name: GITHUB_TOKEN
+      valueFrom:
+        secretKeyRef:
+          key: GITHUB_TOKEN
+          name: securecodebox-secret
+  cascades:
+    matchLabels:
+      securecodebox.io/intensive: workshop-gitrepo-{YOURNAME}

@@ -1,0 +1,39 @@
+apiVersion: cascading.securecodebox.io/v1
+kind: CascadingRule
+metadata:
+  labels:
+    securecodebox.io/intensive: workshop-gitrepo-{YOURNAME}
+  name: gileaks-cascading-{YOURNAME}
+  namespace: securecodebox-system
+spec:
+  matches:
+    anyOf:
+      - name: GitHub Repo
+  scanAnnotations:
+    defectdojo.securecodebox.io/product-name: '{{{ attributes.full_name }}}-{YOURNAME}'
+    defectdojo.securecodebox.io/product-type-name: WORKSHOP
+  scanSpec:
+    initContainers:
+      - command:
+          - git
+          - clone
+          - '--mirror'
+          - '{{{attributes.web_url}}}.git'
+          - /repo/{{{attributes.full_name}}}/
+        image: bitnami/git
+        name: git-clone
+        volumeMounts:
+          - mountPath: /repo/
+            name: repo
+    parameters:
+      - detect
+      - '--source'
+      - /repo/{{{attributes.full_name}}}/
+    resourceMode: namespaceLocal
+    scanType: gitleaks
+    volumeMounts:
+      - mountPath: /repo/
+        name: repo
+    volumes:
+      - emptyDir: {}
+        name: repo
