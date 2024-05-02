@@ -30,11 +30,6 @@ jobs:
       # Assuming you have an API to push to Dependency-Track, adjust as necessary
       - name: Push results to Dependency-Track
         run: |
-          curl -X 'PUT' \
-            'http://34.142.201.115/api/v1/sbom' \
-            -H 'Content-Type: application/json' \
-            -H 'X-API-Key: LPojpCDSsEd4V9Zi6qCWr4KsiF3Konze'
-            -d @syft-output.json"
           curl -X POST http://34.142.201.115/api/v1/bom \
             -H "Content-Type: multipart/form-data" \
             -H "X-API-Key: LPojpCDSsEd4V9Zi6qCWr4KsiF3Konze" \
