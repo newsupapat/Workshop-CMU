@@ -33,6 +33,7 @@ jobs:
           curl -X POST http://34.142.201.115/api/v1/bom \
             -H "Content-Type: multipart/form-data" \
             -H "X-API-Key: LPojpCDSsEd4V9Zi6qCWr4KsiF3Konze" \
-            -F "projectName=test02" \
+            -F "projectName=${{ github.repository }}" \
             -F "autoCreate=true" \
+             -F "projectVersion=xxxx" \
             -F "bom=@syft-output.json"
