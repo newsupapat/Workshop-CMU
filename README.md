@@ -26,7 +26,7 @@ Run the following command
 Snyk docker
 
 ```bash {"id":"01HWSY7NTNEJZ4RYNRTSMM4WJ7"}
-docker run -it -e "SNYK_TOKEN={YOUR_TOKEN}" -v "./NodeGoat:/project" snyk/snyk:node bash
+docker run -it -e "SNYK_TOKEN={YOUR_TOKEN}" -v "./02-snyk:/project" snyk/snyk:node bash
 ```
 
 Inside Docker
