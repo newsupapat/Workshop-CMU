@@ -35,5 +35,5 @@ jobs:
             -H "X-API-Key: ADHTh2hlZ74DNtCupCl4HnxuMZOYIT31" \
             -F "projectName=new" \
             -F "autoCreate=true" \
-             -F "projectVersion=new" \
+            -F "projectVersion=new" \
             -F "bom=@syft-output.json"
