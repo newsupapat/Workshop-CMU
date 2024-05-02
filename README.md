@@ -33,6 +33,7 @@ Inside Docker
 
 ```bash {"id":"01HWSY7NTNEJZ4RYNRTXH3CEAY"}
   cd /project
+  snyk test
   snyk code test
 ```
 
